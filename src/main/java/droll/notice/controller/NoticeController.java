@@ -1,33 +1,41 @@
 package droll.notice.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
+import javax.servlet.http.HttpServletRequest;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import droll.notice.service.NoticeServiceImpl;
 
 @RestController
+@Aspect
 public class NoticeController {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
+	NoticeServiceImpl noticeServiceImpl;
 	
-	  @RequestMapping(value = "/", method = RequestMethod.GET)
-	  public String home(Locale locale, Model model) {
-		  
-		  logger.debug("디버그");
-		  logger.info("인포");
-		  Date date = new Date();
-	      DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-	          
-	      String formattedDate = dateFormat.format(date);
-	          
-	      model.addAttribute("serverTime", formattedDate );
+	@RequestMapping(value = "/notice/viewList.do")
+	public ModelAndView viewList(HttpServletRequest req) throws Exception {
+		ModelAndView mv = new ModelAndView("/notice/noticeListR");
+		List<Map<String, Object>> list = noticeServiceImpl.selectList();
+		mv.addObject("list", list);
 
-	      return "index";
-	  }
+		return mv;
+	}
+
+	@RequestMapping(value = "/notice/viewDetail.do")
+	public ModelAndView create(HttpServletRequest req) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		List<Map<String, Object>> list = noticeServiceImpl.selectList();
+		mv.addObject("list", list);
+		
+		return mv;
+	}
 }
