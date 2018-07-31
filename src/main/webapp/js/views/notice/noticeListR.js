@@ -1,7 +1,4 @@
 $(document).ready(function(){ 
-	$("#write").on("click", function(e){
-		fnCreate(); 
-	});	
 	
 	$("a[name='title']").on("click", function(e){
 		fnDetail($(this)); 
@@ -9,6 +6,7 @@ $(document).ready(function(){
 }); 
 
 function fnCreate(){
+	console.log('123');
 	var comSubmit = new ComSubmit(); 
 	comSubmit.setUrl("<c:url value='/notice/viewDetail.do' />");
 	comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
@@ -20,6 +18,4 @@ function fnDetail(obj){
 	comSubmit.setUrl("<c:url value='/notice/viewDetail.do' />"); 
 	comSubmit.addParam("IDX", obj.parent().find("#IDX").val()); 
 	comSubmit.submit(); 
-} 
-
-
+}

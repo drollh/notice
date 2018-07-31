@@ -3,8 +3,9 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
-<script type="text/javascript" src="<c:url value='/js/noticeC.js'/>"></script>
 </head>
+<%@ include file="/WEB-INF/include/include-js.jspf" %>
+<script type="text/javascript" src="<c:url value='/js/noticeC.js'/>"></script>
 <body>
     <form id="frm" name="frm" enctype="multipart/form-data">
         <table class="board_view">

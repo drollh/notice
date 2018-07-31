@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.btn-orange{
+	color: #fff;
+	background-color: #ec971f;
+}
+.btn-sky{
+	color: #fff;
+	background-color: #5bc0de;
+}
+.btn-red{
+	color: #fff;
+	background-color: #f44336;
+}
+.btn-green{
+	color: #fff;
+	background-color: #4CAF50;
+}
+.btn-gray{
+	color: #555555;
+	background-color: #e7e7e7;
+}
+.btn-black{
+	color: #fff;
+	background-color: #555555;
+}
+.btn-blue{
+	color: #fff;
+	background-color: #008CBA;
+}

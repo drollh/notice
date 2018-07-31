@@ -2,17 +2,20 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<title>Spring boot Notice</title>
 <head>
-<%@ include file="/WEB-INF/include/include-header.jspf"%>
-<script type="text/javascript" src="<c:url value='/js/views/notice/noticeListR.js'/>"></script>
+<%@ include file="/WEB-INF/include/include-header.jspf" %>
 </head>
+<%@ include file="/WEB-INF/include/include-js.jspf" %>
+<script type="text/javascript" src="<%= request.getContextPath() + request.getRequestURI().replace("WEB-INF","js").replace(".jsp", ".js")%>"></script>
 <body>
-	<h2>게시판 목록</h2>
-	<table class="board_list">
+<h2>게시판 목록</h2>
+<form>
+	<table class="table">
 		<colgroup>
 			<col width="10%" />
-			<col width="*" />
-			<col width="15%" />
+			<col width="60%" />
+			<col width="10%" />
 			<col width="20%" />
 		</colgroup>
 		<thead>
@@ -29,7 +32,7 @@
 					<c:forEach items="${list }" var="row">
 						<tr>
 							<td>${row.IDX }</td>
-							<td class="title"><a href="#this" name="title">${row.TITLE }</a>
+							<td class="title">${row.TITLE }
 								<input type="hidden" id="IDX" value="${row.IDX }"></td>
 							<td>${row.HIT_CNT }</td>
 							<td>${row.CREA_DTM }</td>
@@ -45,9 +48,17 @@
 		</tbody>
 	</table>
 	<br />
-	<a href="#this" class="btn" id="write">글쓰기</a>
+
+<div class="btn-group" role="group" >
+	<button id="write" type="button" class="btn btn-green">글쓰기</button><script>
+		$(this).on("click", function(e){
+			fnCreate(); 
+		});
+	</script>
+</div>
 	<%@ include file="/WEB-INF/include/include-body.jspf"%>
-	
+</form>
+
 </body>
 </html>
 
