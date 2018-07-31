@@ -1,0 +1,11 @@
+# db 생성
+create database Notice; 
+
+# 유저 생성
+create user 'Notice'@'localhost' identified by 'Notice';
+
+# 유저 권한
+grant all privileges on Notice.* to 'Notice'@'%'; 
+
+# 적용
+flush privileges;  

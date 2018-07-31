@@ -27,9 +27,7 @@ logging:
     jdbc.sqltiming: INFO
     jdbc.resultsettable: INFO
   exception-conversion-word: "logging failed"
-  
-  
-  
+
 # mybatis set
 mybatis:
   mapper-locations: classpath:mapper/**/*SQL.xml
