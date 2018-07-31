@@ -21,7 +21,7 @@ public class NoticeController {
 	NoticeServiceImpl noticeServiceImpl;
 	
 	@RequestMapping(value = "/notice/viewList.do")
-	public ModelAndView viewList(HttpServletRequest req) throws Exception {
+	public ModelAndView viewList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/notice/noticeListR");
 		List<Map<String, Object>> list = noticeServiceImpl.selectList();
 		mv.addObject("list", list);
@@ -30,7 +30,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/viewDetail.do")
-	public ModelAndView create(HttpServletRequest req) throws Exception {
+	public ModelAndView create(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		List<Map<String, Object>> list = noticeServiceImpl.selectList();

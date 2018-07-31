@@ -1,5 +1,8 @@
-# view set
 spring:
+# 운영/개발
+  profiles:
+    active: dev
+# view set
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -7,11 +10,26 @@ spring:
 
 # db set
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/Study
-    username: Study
-    password: Study
-    
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy 
+    url: jdbc:log4jdbc:mariadb://localhost:3307/Notice
+    username: Notice
+    password: Notice
+
+#log set
+logging:
+  file: D:/study/log/notice.log
+  pattern: 
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: WARN
+    droll: INFO
+    jdbc.sqltiming: INFO
+    jdbc.resultsettable: INFO
+  exception-conversion-word: "logging failed"
+  
+  
+  
 # mybatis set
 mybatis:
   mapper-locations: classpath:mapper/**/*SQL.xml
