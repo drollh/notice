@@ -41,87 +41,84 @@ function ComSubmit(opt_formId) {
 }
 
 // jQuery aJax 공통
-function callAjax(form){
+function gCallAjax(){
 	var o = {};
 	
 	o.url = "";
     o.type = "POST";
     o.async = true;
     o.param = "";
-    o.dataType = "json";
+    o.dataType = "text";
     o.contentType = "application/json; charset=UTF-8";
-
+    o.callback = "";
     
-    o.setUrl = function setUrl(url){
+    this.setUrl = function setUrl(url){
     	o.url = url;
     };
 
-    o.setType = function setType(type){
+    this.setType = function setType(type){
         o.type = type;
     };
     
-    o.setAsync = function setAsync(async){
+    this.setAsync = function setAsync(async){
     	o.async = async;
     };
     
-    o.setParam = function setParam(param){
-    	o.param = JSON.stringify(param)
+    this.setParam = function setParam(param){
+    	o.param = JSON.stringify(param);
+    	//o.param = param;
     };
     
-    o.setDataType = function setDataType(dataType){
+    this.setDataType = function setDataType(dataType){
     	o.dataType = dataType;
     };
     
-    o.setContentType = function setContentType(contentType){
+    this.setContentType = function setContentType(contentType){
     	o.contentType = contentType;
     };
     
-    
-    o.setCallback = function setCallback(callBack){
-        fv_ajaxCallback = callBack;
+    this.setCallback = function setCallback(callBack){
+        o.callback = callBack;
     };
      
-    o.ajax = function ajax(){
+    console.log(o.param);
+    this.call = function call(){
         $.ajax({
-            url : o.url,   
-            type : o.type,  
-            async : o.async,
-            data : o.param,
-            dataType : o.dataType,
+            url      	: o.url,   
+            type     	: o.type,  
+            async    	: o.async,
+            data    	: o.param,
+            dataType 	: o.dataType,
             contentType : o.contentType,
             // Type: Function( jqXHR jqXHR, PlainObject settings )
-            beforeSend:function() {},
+            beforeSend:function(data) {
+            	
+            },
             // Type: Function( jqXHR jqXHR, String textStatus, String errorThrown )
-            error: function (xhr, status, thrownError){},
+            error: function (xhr, status, thrownError){
+        		if (xhr.status == 901) {
+        			alert("세션이 끊겼습니다. 로그인 후 다시 사용하세요.");
+        			window.location.href = "/main.do";
+        		} else {
+        			alert("시스템 오류 : "+xhr + " : " + status + " : " + thrownError);
+        		}            	
+            },
+            
             // Type: Function( Anything data, String textStatus, jqXHR jqXHR )
             success : function(data, status) {
-                if(typeof(fv_ajaxCallback) == "function"){
-                    fv_ajaxCallback(data);
+                if(typeof(o.callback) == "function"){
+                	o.callback(data);
                 }
                 else {
-                    eval(fv_ajaxCallback + "(data);");
+                    eval(o.callback + "(data);");
                 }
             }
         });
     };
+    console.log(o.param);
 }
-/*$.ajax({
 
-	beforeSend: function() {
-		datagrid1.showWait(true);
-	},
-	error: function (xhr, ajaxOptions, thrownError){
-		if (xhr.status == 901) {
-			alert("세션이 끊겼습니다. 로그인 후 다시 사용하세요.");
-			window.location.href = "/main.do";
-		} else {
-			alert("시스템 오류 : "+xhr + " : " + ajaxOptions + " : " + thrownError);
-		}
-	},
-	success: function(json) {
-
-	}*/
-
+// serializeObject
 (function($){
 	$.fn.serializeObject = function () {
 		var result = {};
@@ -142,20 +139,3 @@ function callAjax(form){
 		return result;
 	};
 })(jQuery);
-
-/*jQuery.fn.serializeObject = function()
-{
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};*/

@@ -5,12 +5,15 @@ $(document).ready(function(){
 	}); 
 }); 
 
-function fnCreate(){
-	console.log('123');
-	var comSubmit = new ComSubmit(); 
-	comSubmit.setUrl("<c:url value='/notice/viewDetail.do' />");
-	comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
-	comSubmit.submit();
+function fnWrite(){
+	var param = $('#form').serializeObject();
+	
+	var ajax = new gCallAjax();
+	
+	ajax.setUrl("/notice/viewDetail.do");
+	ajax.setParam("{ viewID: '123' }");
+	ajax.setCallback("fnCallBack");
+	ajax.call();
 } 
 
 function fnDetail(obj){ 
@@ -18,4 +21,7 @@ function fnDetail(obj){
 	comSubmit.setUrl("<c:url value='/notice/viewDetail.do' />"); 
 	comSubmit.addParam("IDX", obj.parent().find("#IDX").val()); 
 	comSubmit.submit(); 
+}
+
+function fnCallBack(){
 }

@@ -33,6 +33,7 @@ public class NoticeController {
 	public ModelAndView create(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
+		mv.setViewName("/notice/noticeC");
 		List<Map<String, Object>> list = noticeServiceImpl.selectList();
 		mv.addObject("list", list);
 		
