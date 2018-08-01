@@ -8,13 +8,24 @@ $(document).ready(function(){
 function fnWrite(){
 	var param = $('#form').serializeObject();
 	
+	var ajax = new callAjax();
+	
+	ajax.url("/notice/viewDetail.do");
+	ajax.param("{ viewID: '123' }");
+	ajax.callback("fnCallBack");
+	ajax.execute();
+} 
+
+/*function fnWrite(){
+	var param = $('#form').serializeObject();
+	
 	var ajax = new gCallAjax();
 	
 	ajax.setUrl("/notice/viewDetail.do");
 	ajax.setParam("{ viewID: '123' }");
 	ajax.setCallback("fnCallBack");
 	ajax.call();
-} 
+}*/
 
 function fnDetail(obj){ 
 	var comSubmit = new ComSubmit(); 
@@ -24,4 +35,5 @@ function fnDetail(obj){
 }
 
 function fnCallBack(){
+	console.log("succ");
 }
