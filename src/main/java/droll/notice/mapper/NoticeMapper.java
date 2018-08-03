@@ -8,4 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface NoticeMapper {
 	public List<Map<String, Object>> selectList();
+
+	public void create(Map<String, Object> params);
+
 }

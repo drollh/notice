@@ -13,8 +13,7 @@ function fnIsNull(str) {
 	return false;
 }
 
-// form submit
-function ComSubmit(opt_formId) {
+function dComSubmit(opt_formId) {
 	this.formId = fnIsNull(opt_formId) == true ? "commonForm" : opt_formId;
 	this.url = "";
 	
@@ -22,7 +21,7 @@ function ComSubmit(opt_formId) {
 		$("#commonForm")[0].reset();
 	}
 	
-	this.setUrl = function setUrl(url) {
+	this.url = function url(url) {
 		this.url = url;
 	}
 	
@@ -39,6 +38,69 @@ function ComSubmit(opt_formId) {
 		frm.submit();
 	}
 }
+
+// form submit
+var ComForm = function() {
+	
+	var f = {};
+	var o = { $f:jQuery(f), id:"commonForm", method:"POST" };
+	
+	if(o.id == "commonForm"){
+		console.log("chk");
+		$("#commonForm")[0].reset();	
+	}
+	
+    f.id = function(id)
+    {
+        if (arguments.length == 0) {
+        	return o.id;
+        }
+
+        o.id = id;
+
+        return f;
+    };
+	
+    f.url = function(url)
+    {
+        if (arguments.length == 0) {
+            return o.url;
+        }
+
+        o.url = url;
+
+        return f;
+    };
+
+    f.method = function(method)
+    {
+    	if (arguments.length == 0) {
+    		return o.method;
+    	}
+    	
+    	o.method = method;
+    	
+    	return f;
+    };
+
+    f.param = function(key, value)
+    {
+        if (arguments.length == 2) {
+        	$("#" + o.id).append($("<input type='hidden' name='" + key + "' id='" + key + "' value='" + value + "' >"));
+        }
+        return f;
+    };
+    
+	f.submit = function submit() {
+		var frm = $("#" + o.id)[0];
+		
+		frm.action = o.url;
+		frm.method = "POST";
+		frm.submit();
+	}
+	
+	return f;
+};
 
 // jQuery aJax 공통
 function gCallAjax(){
@@ -119,9 +181,9 @@ function gCallAjax(){
 }
 
 // jQuery aJax 공통
-function callAjax(){
+var ComAjax = function () {
 	var f = {};
-	var o = { };
+	var o = { $f:jQuery(f), type:"POST", async:true, dataType:"json", contentType:"application/json; charset=UTF-8"};
 	
     f.url = function(url)
     {
@@ -136,7 +198,7 @@ function callAjax(){
     f.type = function(type)
     {
     	if (arguments.length == 0) {
-    		return "POST";
+    		return o.type;
     	}
     	o.type = type;
     	
@@ -146,7 +208,7 @@ function callAjax(){
     f.async = function(async)
     {
     	if (arguments.length == 0) {
-    		return true;
+    		return o.async;
     	}
     	o.async = async;
     	
@@ -155,10 +217,13 @@ function callAjax(){
     
     f.param = function(param)
     {
+    	console.log("param : " + param);
     	if (arguments.length == 0) {
     		return o.param;
     	}
     	o.param = JSON.stringify(param);
+    	
+    	console.log("o.param : " + o.param);
     	
     	return f;
     };
@@ -166,7 +231,7 @@ function callAjax(){
     f.dataType = function(dataType)
     {
     	if (arguments.length == 0) {
-    		return "text"
+    		return o.dataType
     	}
     	o.dataType = dataType;
     	
@@ -176,7 +241,7 @@ function callAjax(){
     f.contentType = function(contentType)
     {
     	if (arguments.length == 0) {
-    		return "application/json; charset=UTF-8";
+    		return o.contentType
     	}
     	o.contentType = contentType;
     	
@@ -193,7 +258,12 @@ function callAjax(){
     	return f;
     };
 	
-	f.execute = function call(){
+	f.call = function call(){
+		console.log("url : " + o.url);
+		console.log("type : " + o.type);
+		console.log("async : " + o.async);
+		console.log("dataType : " + o.dataType);
+		console.log("contentType : " + o.contentType);
 		$.ajax({
 			url      	: o.url,   
 			type     	: o.type,  
@@ -226,10 +296,8 @@ function callAjax(){
 			}
 		});
 	};
-	
-	console.log(o.param);
 	return f;
-}
+};
 
 // serializeObject
 (function($){

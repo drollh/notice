@@ -5,40 +5,43 @@
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
 </head>
 <%@ include file="/WEB-INF/include/include-js.jspf" %>
-<script type="text/javascript" src="<c:url value='/js/noticeC.js'/>"></script>
+<script type="text/javascript" src="<%= request.getContextPath() + request.getRequestURI().replace("WEB-INF","js").replace(".jsp", ".js")%>"></script>
 <body>
-    <form id="frm" name="frm" enctype="multipart/form-data">
-        <table class="board_view">
-            <colgroup>
-                <col width="15%">
-                <col width="*"/>
-            </colgroup>
-            <caption>게시글 작성</caption>
-            <tbody>
-                <tr>
-                    <th scope="row">제목</th>
-                    <td><input type="text" id="TITLE" name="TITLE" class="wdp_90"></input></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="view_text">
-                        <textarea rows="20" cols="100" title="내용" id="CONTENTS" name="CONTENTS"></textarea>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div id="fileDiv">
-            <p>
-                <input type="file" id="file" name="file_0">
-                <a href="#this" class="btn" id="delete" name="delete">삭제</a>
-            </p>
-        </div>
-         
-        <br/><br/>
-        <a href="#this" class="btn" id="addFile">파일 추가</a>
-        <a href="#this" class="btn" id="write">작성하기</a>
-        <a href="#this" class="btn" id="list">목록으로</a>
-    </form>
-     
-    <%@ include file="/WEB-INF/include/include-body.jspf" %>
+<h2>게시글 작성</h2>
+<form id="form" class="form-control" enctype="multipart/form-data">
+    <table class="table-bordered" >
+        <colgroup>
+			<col width="20%" />
+			<col width="80%" />
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>제목</th>
+                <td>
+                	<input type="text" id="noticeTitle" name="noticeTitle"></input>
+                </td>
+            </tr>
+            <tr>
+            	<th>내용</th>
+                <td>
+                    <textarea rows="10" cols="60" id="noticeContent" name="noticeContent"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="fileDiv">
+		<input type="file" id="file" name="file_0">
+		<button type="button" class="btn btn-red" id="fileDel" >삭제</button>
+    </div>
+    
+    <button type="button" class="btn btn-orange" id="addFile" >파일 추가</button>
+    <div class="btn-group" role="group">
+		<button type="button" class="btn btn-green" id="save" >저장</button>
+		<button type="button" class="btn btn-blue"	id="list" >목록</button>
+	</div>    
+</form>
+
+<%@ include file="/WEB-INF/include/include-body.jspf"%>
+
 </body>
 </html>

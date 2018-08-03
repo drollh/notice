@@ -10,7 +10,7 @@
 <script type="text/javascript" src="<%= request.getContextPath() + request.getRequestURI().replace("WEB-INF","js").replace(".jsp", ".js")%>"></script>
 <body>
 <h2>게시판 목록</h2>
-<form id="form">
+<form id="form" class="form-control">
 	<table class="table">
 		<colgroup>
 			<col width="10%" />
@@ -48,16 +48,13 @@
 		</tbody>
 	</table>
 	<br />
+</form>
 
 <div class="btn-group" role="group" >
-	<button id="write" type="button" class="btn btn-green">글쓰기</button><script>
-		$(this).on("click", function(e){
-			fnWrite(); 
-		});
-	</script>
+	<button id="write" type="button" class="btn btn-green">글쓰기</button>
 </div>
-	<%@ include file="/WEB-INF/include/include-body.jspf"%>
-</form>
+
+<%@ include file="/WEB-INF/include/include-body.jspf"%>
 
 </body>
 </html>
