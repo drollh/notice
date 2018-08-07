@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/webjars/jquery-ui/1.12.1/jquery-ui.min.css" />
 <link rel="stylesheet" href="<%= request.getContextPath() %>/webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/webjars/jqgrid/4.7.0/css/ui.jqgrid.css" />
+
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/common.css" />
 
 

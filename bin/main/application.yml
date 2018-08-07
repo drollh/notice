@@ -33,4 +33,3 @@ mybatis:
   mapper-locations: classpath:mapper/**/*SQL.xml
   configuration:
     map-underscore-to-camel-case: true
-    

@@ -31,11 +31,11 @@
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="row">
 						<tr>
-							<td>${row.IDX }</td>
-							<td class="title">${row.TITLE }
-								<input type="hidden" id="IDX" value="${row.IDX }"></td>
-							<td>${row.HIT_CNT }</td>
-							<td>${row.CREA_DTM }</td>
+							<td>${row.NOTICE_SEQ }</td>
+							<td><a href="#this" name="NOTICE_TITLE">${row.NOTICE_TITLE }</a>
+							<input type="hidden" id="NOTICE_ID" value="${row.NOTICE_ID }"></td>
+							<td>${row.RETRIEVE_CNT }</td>
+							<td>${row.CRE_DATETIME }</td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -47,8 +47,15 @@
 			</c:choose>
 		</tbody>
 	</table>
-	<br />
 </form>
+
+<div id="jqGrid">
+
+</div>
+
+<div id="paging">
+
+</div>
 
 <div class="btn-group" role="group" >
 	<button id="write" type="button" class="btn btn-green">글쓰기</button>

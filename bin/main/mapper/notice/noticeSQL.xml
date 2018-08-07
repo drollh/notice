@@ -5,17 +5,18 @@
 
 <select id="selectList" parameterType="hashmap" resultType="hashmap"><![CDATA[
 SELECT NOTICE_ID
+     , NOTICE_SEQ
 	 , NOTICE_TITLE
      , RETRIEVE_CNT
      , CRE_USER
      , CRE_DATETIME
   FROM TB_NOTICE
  WHERE DEL_YN = 'N'
- ORDER BY CRE_DATETIME DESC
+ ORDER BY NOTICE_SEQ DESC
 ]]></select>
 
-<insert id="insertBoard" parameterType="hashmap"><![CDATA[
-INSERT INTO TB_BOARD (
+<insert id="create" parameterType="hashmap"><![CDATA[
+INSERT INTO TB_NOTICE (
     NOTICE_ID
   , CRE_USER
   , CRE_DATETIME
@@ -24,13 +25,14 @@ INSERT INTO TB_BOARD (
   , RETRIEVE_CNT
   , DEL_YN
 )VALUES(
-	  #{NOTICE_ID}
-	, 'Droll'
-	, now()
-	, #{NOTICE_TITLE}
-	, #{NOTICE_CONTENT}
-	, 0
-	, 'N'
+    (SELECT REPLACE(UUID(),'-',''))
+  , 'Droll'
+  , now()
+  , #{noticeTitle}
+  , #{noticeContent}
+  , 0
+  , 'N'
+)
 ]]> </insert>
 
 <update id="updateHitCnt" parameterType="hashmap"> <![CDATA[ 

@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.annotation.Aspect;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,19 +43,25 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/notice/create.do")
-	public ModelAndView insertBoard(@RequestBody Map<String, Object> params, HttpServletRequest request) throws Exception {
-		//ModelAndView mv = new ModelAndView("redirect:/notice/viewDetail.do");
-		String dd = params.get("noticeTitle").toString();
-		String cc = params.get("noticeContent").toString();
-		//ModelAndView mv = new ModelAndView("/sample/viewDetail.do");
-		ModelAndView mv = new ModelAndView();
-		//noticeServiceImpl.create(params);
-		mv.setViewName("/notice/noticeC");
-		mv.addObject("params", params);
+	public ModelAndView create(@RequestBody Map<String, Object> params, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
 		
-		return mv;
+		noticeServiceImpl.create(params);
+		
+		mv.addObject("result", params);
+		
+ 		return mv;
 	}
 
+	@RequestMapping(value = "/notice/retrieve.do")
+	public ModelAndView retrieve(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String, Object>> list = noticeServiceImpl.selectList();
+		mv.addObject("list", list);
+
+		return mv;
+	}
+	
 /*	@RequestMapping(value = "/sample/openBoardDetail.do")
 	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/sample/boardDetail");

@@ -187,9 +187,6 @@ var ComAjax = function () {
 	
     f.url = function(url)
     {
-        if (arguments.length == 0) {
-            return o.url;
-        }
         o.url = url;
 
         return f;
@@ -197,9 +194,6 @@ var ComAjax = function () {
 
     f.type = function(type)
     {
-    	if (arguments.length == 0) {
-    		return o.type;
-    	}
     	o.type = type;
     	
     	return f;
@@ -207,9 +201,6 @@ var ComAjax = function () {
     
     f.async = function(async)
     {
-    	if (arguments.length == 0) {
-    		return o.async;
-    	}
     	o.async = async;
     	
     	return f;
@@ -217,22 +208,13 @@ var ComAjax = function () {
     
     f.param = function(param)
     {
-    	console.log("param : " + param);
-    	if (arguments.length == 0) {
-    		return o.param;
-    	}
     	o.param = JSON.stringify(param);
-    	
-    	console.log("o.param : " + o.param);
     	
     	return f;
     };
     
     f.dataType = function(dataType)
     {
-    	if (arguments.length == 0) {
-    		return o.dataType
-    	}
     	o.dataType = dataType;
     	
     	return f;
@@ -240,30 +222,26 @@ var ComAjax = function () {
     
     f.contentType = function(contentType)
     {
-    	if (arguments.length == 0) {
-    		return o.contentType
-    	}
     	o.contentType = contentType;
     	
     	return f;
     };
 
-    f.callback = function(callback)
+    f.before = function(before)
     {
-    	if (arguments.length == 0) {
-    		return o.callback
-    	}
-    	o.callback = callback;
+    	o.before = before;
+    	
+    	return f;
+    };
+    
+    f.success = function(success)
+    {
+    	o.success = success;
     	
     	return f;
     };
 	
 	f.call = function call(){
-		console.log("url : " + o.url);
-		console.log("type : " + o.type);
-		console.log("async : " + o.async);
-		console.log("dataType : " + o.dataType);
-		console.log("contentType : " + o.contentType);
 		$.ajax({
 			url      	: o.url,   
 			type     	: o.type,  
@@ -272,26 +250,30 @@ var ComAjax = function () {
 			dataType 	: o.dataType,
 			contentType : o.contentType,
 			// Type: Function( jqXHR jqXHR, PlainObject settings )
-			beforeSend:function(data) {
-				
+			beforeSend:function() {
+				if(!fnIsNull(o.before)){
+					if(typeof(o.before) == "function"){
+						o.before();
+					}
+					else {
+						eval(o.before + "();");
+					}
+				}
 			},
 			// Type: Function( jqXHR jqXHR, String textStatus, String errorThrown )
 			error: function (xhr, status, thrownError){
-				if (xhr.status == 901) {
-					alert("세션이 끊겼습니다. 로그인 후 다시 사용하세요.");
-					window.location.href = "/main.do";
-				} else {
-					alert("시스템 오류 : "+xhr + " : " + status + " : " + thrownError);
-				}            	
+				alert("aJax 통신 오류 : " + xhr.status + " : " + status + " : " + thrownError);
 			},
-			
+
 			// Type: Function( Anything data, String textStatus, jqXHR jqXHR )
-			success : function(data, status) {
-				if(typeof(o.callback) == "function"){
-					o.callback(data);
-				}
-				else {
-					eval(o.callback + "(data);");
+			success : function(data, status, xhr) {
+				if(status == "success" && xhr.status == 200){
+					if(typeof(o.success) == "function"){
+						o.success(data);
+					}
+					else {
+						eval(o.success + "(data);");
+					}					
 				}
 			}
 		});

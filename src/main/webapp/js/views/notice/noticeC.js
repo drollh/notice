@@ -3,23 +3,24 @@ $(document).ready(function(){
 });
 
 // 목록
-function fnList(){
+function viewList(){
 	var form = new ComForm(); 
 	form.url("/notice/viewList.do");
 	form.submit();    
 }
- 
+
 // 저장
 function fnSave(){
     var ajax = new ComAjax();
     
     var param = $("#form").serializeObject(); 
 
-    console.log("호출 전")
     ajax.url("/notice/create.do");
-    ajax.type("json");
     ajax.param(param);
-    ajax.callback("fnSucc");
+    ajax.success(function(data){
+    	alert("저장되었습니다.");
+    	viewList();
+    	});
     ajax.call();
 }
  
@@ -40,19 +41,12 @@ function fnDelFile(obj){
     obj.parent().remove();
 }
 
-// aJax 성공
-function fnSucc(){
-	console.log('succ');
-	console.log(data.params.noticeTitle);
-
-}
-
 //폼 이벤트
 function formEvent(){
 	//목록
 	$("#list").on("click", function(e){ 
 		e.preventDefault();
-		fnList();
+		viewList();
     });
 	
     //작성

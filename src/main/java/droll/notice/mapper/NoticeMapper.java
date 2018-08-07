@@ -10,5 +10,4 @@ public interface NoticeMapper {
 	public List<Map<String, Object>> selectList();
 
 	public void create(Map<String, Object> params);
-
 }

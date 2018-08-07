@@ -23,8 +23,8 @@ public class NoticeApplication extends SpringBootServletInitializer {
 	}
 
     @Bean
+    // ModelAndView로 전부 사용하기 위해 매핑잭슨 등록 
     MappingJackson2JsonView jsonView(){
         return new MappingJackson2JsonView();
     }
-
 }

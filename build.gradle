@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.springframework:springloaded:1.2.8.RELEASE'
 	}
 }
 
@@ -36,10 +37,19 @@ dependencies {
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 	// sql log 적용
 	compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+	// jsonObject
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	//  
+	//compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'	
+	//compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+	// Spring Hot Swap(재기동 없이 개발)
+	compileOnly group: 'org.springframework', name: 'springloaded', version: '1.2.8.RELEASE'
+	
 	// webjars
 	compile 'org.webjars:jquery:3.3.1-1'
 	compile 'org.webjars:bootstrap:4.1.2'
 	compile 'org.webjars:jquery-ui:1.12.1'
+	compile 'org.webjars:jqgrid:4.7.0'
 	
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
