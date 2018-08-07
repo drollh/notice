@@ -3,18 +3,23 @@
  
 <mapper namespace="droll.notice.mapper.NoticeMapper">
 
-<select id="selectList" parameterType="hashmap" resultType="hashmap"><![CDATA[
+<select id="selectList" parameterType="hashmap" resultType="hashmap">
+<include refid="paging.pre"/>
+<![CDATA[
 SELECT NOTICE_ID
      , NOTICE_SEQ
 	 , NOTICE_TITLE
-	 , NOTICE_CONTENT
+     , NOTICE_CONTENT
      , RETRIEVE_CNT
      , CRE_USER
      , CRE_DATETIME
+     , ROW_NUMBER() OVER(ORDER BY CRE_DATETIME) ROWNUM
   FROM TB_NOTICE
  WHERE DEL_YN = 'N'
  ORDER BY NOTICE_SEQ DESC
-]]></select>
+]]>
+<include refid="paging.suf"/>
+</select>
 
 <insert id="create" parameterType="hashmap"><![CDATA[
 INSERT INTO TB_NOTICE (

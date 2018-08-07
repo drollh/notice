@@ -3,6 +3,7 @@ package droll.common.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -88,5 +89,13 @@ public class CommonUtil {
 			request.setAttribute(key, value);
 		}
 	}*/
-	
+
+	// request 값 찍기
+	/*	Enumeration params = request.getParameterNames();
+	System.out.println("----------------------------");
+	while (params.hasMoreElements()){
+	    String name = (String)params.nextElement();
+	    System.out.println(name + " : " +request.getParameter(name));
+	}
+	System.out.println("----------------------------");*/	
 }

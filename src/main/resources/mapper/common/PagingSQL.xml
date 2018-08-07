@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="paging">
+
+<sql id="pre"><![CDATA[
+SELECT * FROM (
+SELECT TOTAL.* 
+	 , COUNT(*) OVER() AS TOTAL_COUNT
+  FROM (
+]]></sql>
+
+<sql id="suf"><![CDATA[
+)TOTAL
+)PAGING
+WHERE PAGING.ROWNUM BETWEEN 1 AND 10
+##WHERE PAGING.ROWNUM BETWEEN #{START} AND #{END}
+ORDER BY ROWNUM DESC
+]]></sql>
+
+
+</mapper>

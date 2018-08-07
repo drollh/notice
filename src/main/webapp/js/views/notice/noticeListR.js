@@ -14,6 +14,7 @@ function fnRetrieve(){
 		      //records: "totalrecords"
 		   },
 	   	url:'/notice/retrieve.do',
+	   	mtype : 'post',
 		datatype: "json",
 	   	colNames:['순번','제목', '내용'],
 	   	colModel:[
@@ -22,12 +23,12 @@ function fnRetrieve(){
 	   		{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300},
 	   	],
 	   	rowNum:10,
-	   	rowTotal: 50,
+	   	rowTotal:50,
 	   	rowList:[10,20,30],
 	   	pager: '#paging',
 	   	sortname: 'NOTICE_ID',
 	    viewrecords: true,
-	    sortorder: "desc",
+	    //sortorder: "desc",
 	    caption:"게시판",
 	});
 	jQuery("#jqGrid").jqGrid('navGrid','#paging',{edit:false,add:false,del:false});

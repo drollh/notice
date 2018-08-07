@@ -1,5 +1,6 @@
 package droll.notice.controller;
 
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,15 @@ public class NoticeController {
 	@RequestMapping(value = "/notice/retrieve.do")
 	public ModelAndView retrieve(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");
+		Enumeration params = request.getParameterNames();
+		System.out.println("----------------------------");
+		while (params.hasMoreElements()){
+		    String name = (String)params.nextElement();
+		    System.out.println(name + " : " +request.getParameter(name));
+		}
+		System.out.println("----------------------------");
+
+
 		List<Map<String, Object>> list = noticeServiceImpl.selectList();
 		mv.addObject("list", list);
 
