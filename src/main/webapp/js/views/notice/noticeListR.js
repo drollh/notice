@@ -1,37 +1,37 @@
 $(document).ready(function(){ 
-	//fnRetrieve();
-	//formEvent();
+	fnRetrieve();
+	formEvent();
+}); 
 
+//작성
+function fnRetrieve(){ 
 	console.log('jqGrid start');
 	$("#jqGrid").jqGrid({
+		 jsonReader : {
+		      root:"list",
+		      //page: "currpage",
+		      //total: "totalpages",
+		      //records: "totalrecords"
+		   },
 	   	url:'/notice/retrieve.do',
 		datatype: "json",
-	   	colNames:['NOTICE_ID','NOTICE_TITLE', 'NOTICE_CONTENT'],
+	   	colNames:['순번','제목', '내용'],
 	   	colModel:[
-	   		{name:'NOTICE_ID',index:'NOTICE_ID', width:55},
-	   		{name:'NOTICE_TITLE',index:'NOTICE_TITLE', width:90},
-	   		{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:100},
+	   		{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80},
+	   		{name:'NOTICE_TITLE',index:'NOTICE_TITLE', width:150},
+	   		{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300},
 	   	],
 	   	rowNum:10,
+	   	rowTotal: 50,
 	   	rowList:[10,20,30],
 	   	pager: '#paging',
 	   	sortname: 'NOTICE_ID',
 	    viewrecords: true,
 	    sortorder: "desc",
-	    caption:"JSON Example"
+	    caption:"게시판",
 	});
 	jQuery("#jqGrid").jqGrid('navGrid','#paging',{edit:false,add:false,del:false});
 	console.log('jqGrid end');
-}); 
-
-//작성
-function fnRetrieve(){ 
-    var ajax = new ComAjax();
-    ajax.url("/notice/retrieve.do");
-    ajax.success(function(data){
-    	console.log(data.list);
-    	});
-    ajax.call();
 }
 
 //작성
@@ -43,9 +43,13 @@ function fnWrite(){
 
 // 폼 이벤트
 function formEvent(){
-	// 작성 버튼
+	// 작성
 	$('#write').on("click", function(e){
 		fnWrite(); 
+	});
+	// 조회
+	$('#retrieve').on("click", function(e){
+		fnRetrieve(); 
 	});
 }
 

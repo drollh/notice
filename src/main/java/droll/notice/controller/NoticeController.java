@@ -24,8 +24,6 @@ public class NoticeController {
 	@RequestMapping(value = "/notice/viewList.do")
 	public ModelAndView viewList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/notice/noticeListR");
-		List<Map<String, Object>> list = noticeServiceImpl.selectList();
-		mv.addObject("list", list);
 
 		return mv;
 	}

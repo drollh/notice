@@ -1,6 +1,6 @@
-<script src="/webjars/jquery/3.3.1-1/jquery.min.js" ></script>
-<script src="/webjars/bootstrap/4.1.2/js/bootstrap.min.js" ></script>
-<script src="/webjars/jqgrid/4.7.0/js/minified/jquery.jqGrid.min.js" ></script>
-<script src="/webjars/jqgrid/4.7.0/js/i18n/grid.locale-kr.js" ></script>
+<script src="/common/jquery-3.3.1/jquery-3.3.1.js" ></script>
+<script src="/common/bootstrap-4.1.3/js/bootstrap.js" ></script>
+<script src="/common/jqgrid-4.7.0/js/jquery.jqGrid.js" ></script>
+<script src="/common/jqgrid-4.7.0/js/i18n/grid.locale-kr.js" ></script>
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/common/common.js"></script>
