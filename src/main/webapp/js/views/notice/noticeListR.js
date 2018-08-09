@@ -3,39 +3,6 @@ $(document).ready(function(){
 	formEvent();
 }); 
 
-//작성
-/*function fnRetrieve(){ 
-	console.log('jqGrid start');
-	$("#jqGrid").jqGrid({
-		 jsonReader : {
-		      root:"list",
-		      //page: "currpage",
-		      //total: "totalpages",
-		      //records: "totalrecords"
-		   },
-	   	url:'/notice/retrieve.do',
-	   	autowidth: true,
-	   	mtype : 'post',
-		datatype: "json",
-	   	colNames:['순번','제목', '내용'],
-	   	colModel:[
-	   		{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80},
-	   		{name:'NOTICE_TITLE',index:'NOTICE_TITLE', width:150},
-	   		{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300},
-	   	],
-	   	rowNum:10,
-	   	rowTotal:50,
-	   	rowList:[10,20,30],
-	   	pager: '#paging',
-	   	sortname: 'NOTICE_ID',
-	    viewrecords: true,
-	    sortorder: "desc",
-	    caption:"게시판",
-	});
-	$("#jqGrid").jqGrid('navGrid','#paging',{edit:false,add:false,del:false});
-	console.log('jqGrid end');
-}*/
-
 function fnRetrieve(){ 
 	var grid = new ComGrid();
 	// grid 뿌려질 id 현재 #로 고정 추후 selector 추가
@@ -59,16 +26,16 @@ function fnRetrieve(){
    	//  {name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300},
    	//	],
    	grid.colModel([ 
-   					{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80},
+   					{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80, formatter:'integer', sorttype:'integer'},
 	   			 	{name:'NOTICE_TITLE',index:'NOTICE_TITLE', width:150},
 	   			 	{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300}
 	   			 ]);
-   	// row 갯 수 default:10
+   	// 한 페이지에 보여줄 갯 수 
    	grid.rowNum(10); 
-   	// 한 페이지에 보여줄 갯 수 default:50
-   	grid.rowTotal(5); 
+   	// loadOnce랑 scroll이랑 섞어서 뭐 하나본데 모름
+   	//grid.rowTotal(5); 
    	// 한 페이지에 보여줄 갯 수를 조정 할 수 있는 바 default:[50,100,200]
-   	grid.rowList([10,15,20]);
+   	grid.rowList([10,20,30]);
    	// sort id 
    	grid.sortName("NOTICE_SEQ");
    	// sort 순서 default:ASC
@@ -83,6 +50,8 @@ function fnRetrieve(){
    	//grid.jsonReader({root:"gridListvv", page:2, total:40});
    	// grid option으로 edit, add, del 등 설정
    	//grid.options({edit:true, add:false, del:false});
+   	// 첫 페이지만 볼지 여부 default:true >  true여야 다음 페이지 나옴
+   	// grid.loadonce(true);
    	grid.call();
 }
 

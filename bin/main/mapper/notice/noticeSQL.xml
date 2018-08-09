@@ -34,8 +34,8 @@ INSERT INTO TB_NOTICE (
     (SELECT REPLACE(UUID(),'-',''))
   , 'Droll'
   , now()
-  , #{noticeTitle}
-  , #{noticeContent}
+  , @{noticeTitle}
+  , @{noticeContent}
   , 0
   , 'N'
 )

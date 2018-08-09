@@ -284,10 +284,11 @@ var ComAjax = function () {
 // jqGrid 공통
 var ComGrid = function () {
 	var f = {};
-	var o = { $f:jQuery(f), type:"POST", dataType:"json", rowNum:10, rowTotal:50
+	var o = { $f:jQuery(f), type:"POST", dataType:"json", rowNum:10
 			, rowList:[50,100,200], viewRecords:true, autoWidth:true, multiSelect: false
 			, colNames:[], colModel:[], options:{ edit:true, add:false, del:false }
 			, sortOrder:"ASC", jsonReader:{root:"gridList", page:1, total:50}
+			, loadonce:true
 			};
 	
 	f.id = function(id)
@@ -437,7 +438,14 @@ var ComGrid = function () {
 		
 		return f;
 	};
-
+	
+	f.loadonce= function(loadonce)
+	{
+		o.loadonce = loadonce;
+		
+		return f;
+	};
+	
     f.complete = function(complete)
     {
     	o.complete = complete;
@@ -463,6 +471,7 @@ var ComGrid = function () {
 		    caption: o.caption,
 		    multiselect: o.multiSelect,
 			jsonReader : o.jsonReader,
+			loadonce:o.loadonce,
 		    loadComplete:function(data){
 		    	$(o.id).jqGrid('navGrid', o.pager, o.options);
 		    	if(!fnIsNull(o.complete)){
