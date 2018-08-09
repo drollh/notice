@@ -261,8 +261,8 @@ var ComAjax = function () {
 				}
 			},
 			// Type: Function( jqXHR jqXHR, String textStatus, String errorThrown )
-			error: function (xhr, status, thrownError){
-				alert("aJax 통신 오류 : " + xhr.status + " : " + status + " : " + thrownError);
+			error: function (xhr, status, errorThrown){
+				alert("aJax 통신 오류 : " + xhr.status + " : " + status + " : " + errorThrown);
 			},
 
 			// Type: Function( Anything data, String textStatus, jqXHR jqXHR )
@@ -273,10 +273,213 @@ var ComAjax = function () {
 					}
 					else {
 						eval(o.success + "(data);");
-					}					
+					}
 				}
 			}
 		});
+	};
+	return f;
+};
+
+// jqGrid 공통
+var ComGrid = function () {
+	var f = {};
+	var o = { $f:jQuery(f), type:"POST", dataType:"json", rowNum:10, rowTotal:50
+			, rowList:[50,100,200], viewRecords:true, autoWidth:true, multiSelect: false
+			, colNames:[], colModel:[], options:{ edit:true, add:false, del:false }
+			, sortOrder:"ASC", jsonReader:{root:"gridList", page:1, total:50}
+			};
+	
+	f.id = function(id)
+	{
+		o.id = "#" + id;
+		
+		return f;
+	};
+	
+	f.url = function(url)
+	{
+		o.url = url;
+		
+		return f;
+	};
+	
+	f.type = function(type)
+	{
+		o.type = type;
+		
+		return f;
+	};
+	
+	f.dataType = function(dataType)
+	{
+		o.dataType = dataType;
+		
+		return f;
+	};
+
+	f.rowNum = function(rowNum)
+	{
+		o.rowNum = rowNum;
+		
+		return f;
+	};
+	
+	f.rowTotal = function(rowTotal)
+	{
+		o.rowTotal = rowTotal;
+		
+		return f;
+	};
+	
+	f.rowList = function(rowList)
+	{
+		o.rowList = rowList;
+		
+		return f;
+	};
+	
+	f.pager = function(pager)
+	{
+		o.pager = "#" + pager;
+		
+		return f;
+	};
+
+	f.viewRecords = function(viewRecords)
+	{
+		o.viewRecords = viewRecords;
+		
+		return f;
+	};
+	
+	f.autoWidth = function(autoWidth)
+	{
+		o.autoWidth = autoWidth;
+		
+		return f;
+	};
+	
+	f.width = function(width)
+	{
+		o.width = width;
+		
+		return f;
+	};
+
+	f.height = function(height)
+	{
+		o.height = height;
+		
+		return f;
+	};
+
+	f.multiSelect = function(multiSelect)
+	{
+		o.multiSelect = multiSelect;
+		
+		return f;
+	};
+
+	f.colNames = function(colNames)
+	{
+		if ($.type(colNames) === "array") {
+			o.colNames = colNames;
+		}
+		
+		return f;
+	};
+	
+	f.colModel = function(colModel)
+	{
+		if ($.type(colModel) === "array") {
+			o.colModel = colModel;
+		}
+		
+		return f;
+	};
+
+	f.options = function(options)
+	{
+		if ($.type(jsonReader) === "object") {
+        	o.options = options;
+        }
+		
+		return f;
+	};
+
+	f.jsonReader = function(jsonReader)
+	{
+        if ($.type(jsonReader) === "object") {
+        	o.jsonReader = jsonReader;
+        }
+
+        return f;
+	};
+
+	f.sortName = function(sortName)
+	{
+		o.sortName = sortName;
+		
+		return f;
+	};
+
+	f.sortOrder = function(sortOrder)
+	{
+		o.sortOrder = sortOrder;
+		
+		return f;
+	};
+
+	f.caption = function(caption)
+	{
+		o.caption = caption;
+		
+		return f;
+	};
+
+    f.complete = function(complete)
+    {
+    	o.complete = complete;
+    	
+    	return f;
+    };
+    
+	f.call = function call(){
+		$(o.id).jqGrid({
+		   	url:o.url,
+		   	autowidth: o.autoWidth,
+		   	mtype : o.type,
+			datatype: o.dataType,
+		   	colNames: o.colNames,
+		   	colModel: o.colModel, 
+		   	rowNum: o.rowNum,
+		   	rowTotal: o.rowTotal,
+		   	rowList: o.rowList,
+		   	pager: o.pager,
+		   	sortname: o.sortName,
+		   	sortorder: o.sortOrder,
+		    viewrecords: o.viewRecords,
+		    caption: o.caption,
+		    multiselect: o.multiSelect,
+			jsonReader : o.jsonReader,
+		    loadComplete:function(data){
+		    	$(o.id).jqGrid('navGrid', o.pager, o.options);
+		    	if(!fnIsNull(o.complete)){
+					if(typeof(o.complete) == "function"){
+						o.complete(data);
+					}
+					else {
+						eval(o.complete + "(data);");
+					}		    		
+		    	}
+		    },
+		    loadError: function (xhr, status, errorThrown) {
+		    	console.log("grid 오류 : " + xhr.status + " : " + status + " : " + errorThrown);
+	        },
+		    
+		});
+		
 	};
 	return f;
 };

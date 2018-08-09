@@ -65,7 +65,7 @@ public class NoticeController {
 
 
 		List<Map<String, Object>> list = noticeServiceImpl.selectList();
-		mv.addObject("list", list);
+		mv.addObject("gridList", list);
 
 		return mv;
 	}
