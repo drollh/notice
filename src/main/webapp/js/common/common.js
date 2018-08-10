@@ -288,7 +288,7 @@ var ComGrid = function () {
 			, rowList:[50,100,200], viewRecords:true, autoWidth:true, multiSelect: false
 			, colNames:[], colModel:[], options:{ edit:true, add:false, del:false }
 			, sortOrder:"ASC", jsonReader:{root:"gridList", page:1, total:50}
-			, loadonce:true
+			, loadonce:true, cellEvent:[]
 			};
 	
 	f.id = function(id)
@@ -452,6 +452,17 @@ var ComGrid = function () {
     	
     	return f;
     };
+
+    f.cellEvent = function()
+    {
+    	if(arguments.length == 2){
+    		for(var item in arguments){
+    			o.cellEvent[item] = arguments[item]
+    		}
+    	}
+
+    	return f;
+    };
     
 	f.call = function call(){
 		$(o.id).jqGrid({
@@ -486,7 +497,19 @@ var ComGrid = function () {
 		    loadError: function (xhr, status, errorThrown) {
 		    	console.log("grid 오류 : " + xhr.status + " : " + status + " : " + errorThrown);
 	        },
-		    
+	        onCellSelect: function (rowId, iCol, content, event) {
+	        	var cm = $(o.id).jqGrid('getGridParam','colModel');
+	        	var colName = cm[iCol].name
+	        	
+		    	if(o.cellEvent[0] == colName && !fnIsNull(o.cellEvent[1])){
+					if(typeof(o.cellEvent) == "function"){
+						o.cellEvent[1](rowId);
+					}
+					else {
+						eval(o.cellEvent[1] + "(rowId);");
+					}		    		
+		    	}
+	        },
 		});
 		
 	};

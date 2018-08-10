@@ -18,13 +18,13 @@
             <tr>
                 <th>제목</th>
                 <td>
-                	<input type="text" id="noticeTitle" name="noticeTitle"></input>
+                	<input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE"></input>
                 </td>
             </tr>
             <tr>
             	<th>내용</th>
                 <td>
-                    <textarea rows="10" cols="60" id="noticeContent" name="noticeContent"></textarea>
+                    <textarea rows="10" cols="60" id="NOTICE_CONTENT" name="NOTICE_CONTENT"></textarea>
                 </td>
             </tr>
         </tbody>
@@ -38,7 +38,7 @@
     <div class="btn-group" role="group">
 		<button type="button" class="btn btn-green" id="save" >저장</button>
 		<button type="button" class="btn btn-blue"	id="list" >목록</button>
-	</div>    
+	</div>
 </form>
 
 <%@ include file="/WEB-INF/include/include-body.jspf"%>

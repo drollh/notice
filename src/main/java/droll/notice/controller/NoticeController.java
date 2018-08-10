@@ -32,6 +32,17 @@ public class NoticeController {
 	public ModelAndView create(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/notice/noticeC");
 		
+		String noticeId = request.getParameter("NOTICE_ID");
+		
+		if("".equals(noticeId) || noticeId == null) {
+			mv.setViewName("/notice/noticeC");	
+		}else {
+			mv.setViewName("/notice/noticeR");	
+			//Map<String, Object> map = noticeServiceImpl.retrieve(noticeId);
+			
+			mv.addObject("noticeId", noticeId);
+		}
+		
 		return mv;
 	}
 	
@@ -46,27 +57,28 @@ public class NoticeController {
  		return mv;
 	}
 
-	@RequestMapping(value = "/notice/retrieve.do")
-	public ModelAndView retrieve(HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/notice/retrieveList.do")
+	public ModelAndView retrieveList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");
 		
-		List<Map<String, Object>> list = noticeServiceImpl.selectList();
+		List<Map<String, Object>> list = noticeServiceImpl.retrieveList();
 		mv.addObject("gridList", list);
 
 		return mv;
 	}
-	
-/*	@RequestMapping(value = "/sample/openBoardDetail.do")
-	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/sample/boardDetail");
-		Map<String, Object> map = sampleService.selectBoardDetail(commandMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
 
+	@RequestMapping(value = "/notice/retrieve.do")
+	public ModelAndView retrieve(@RequestBody Map<String, Object> params, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		Map<String, Object> map = noticeServiceImpl.retrieve(params);
+		
+		mv.addObject("noticeInfo", map);
+		
 		return mv;
 	}
-
-	@RequestMapping(value = "/sample/openBoardUpdate.do")
+	
+	/*	@RequestMapping(value = "/sample/openBoardUpdate.do")
 	public ModelAndView openBoardUpdate(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/sample/boardUpdate");
 		Map<String, Object> map = sampleService.selectBoardDetail(commandMap.getMap());

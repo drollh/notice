@@ -3,7 +3,7 @@
  
 <mapper namespace="droll.notice.mapper.NoticeMapper">
 
-<select id="selectList" parameterType="hashmap" resultType="hashmap">
+<select id="retrieveList" parameterType="hashmap" resultType="hashmap">
 <include refid="paging.pre"/>
 <![CDATA[
 SELECT NOTICE_ID
@@ -34,28 +34,30 @@ INSERT INTO TB_NOTICE (
     (SELECT REPLACE(UUID(),'-',''))
   , 'Droll'
   , now()
-  , @{noticeTitle}
-  , @{noticeContent}
+  , @{NOTICE_TITLE}
+  , @{NOTICE_CONTENT}
   , 0
   , 'N'
 )
 ]]> </insert>
 
-<update id="updateHitCnt" parameterType="hashmap"> <![CDATA[ 
-UPDATE TB_BOARD SET 
-	HIT_CNT = NVL(HIT_CNT, 0) + 1
-WHERE IDX = #{IDX}	
+<update id="updateCnt" parameterType="hashmap"> <![CDATA[ 
+UPDATE TB_NOTICE SET 
+	RETRIEVE_CNT = NVL(RETRIEVE_CNT, 0) + 1
+WHERE NOTICE_ID = @{NOTICE_ID}	
 ]]> </update> 
 
-<select id="selectBoardDetail" parameterType="hashmap" resultType="hashmap"> <![CDATA[ 
-SELECT IDX
-	 , HIT_CNT
-	 , CREA_ID
-	 , CREA_DTM
-	 , TITLE
-	 , CONTENTS 
-  FROM TB_BOARD 
- WHERE IDX = #{IDX}	
+<select id="retrieve" parameterType="hashmap" resultType="hashmap"> <![CDATA[ 
+SELECT NOTICE_ID
+	 , NOTICE_SEQ
+	 , RETRIEVE_CNT
+	 , CRE_USER
+	 , CRE_DATETIME
+	 , DATE_FORMAT(CRE_DATETIME, '%Y-%m-%d') CRE_DATE
+	 , NOTICE_TITLE
+	 , NOTICE_CONTENT 
+  FROM TB_NOTICE 
+ WHERE NOTICE_ID = @{NOTICE_ID}	
 ]]> </select>
 
 <update id="updateBoard" parameterType="hashmap"> <![CDATA[ 

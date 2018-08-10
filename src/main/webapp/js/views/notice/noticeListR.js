@@ -10,7 +10,7 @@ function fnRetrieve(){
 	// paging 뿌려질 id 현재 #로 고정 추후 selector 추가
 	grid.pager("paging");
 	// url
-	grid.url("/notice/retrieve.do");
+	grid.url("/notice/retrieveList.do");
 	// 위드 자동 조절 default:true 
    	grid.autoWidth(false);
 	// 통신 방법 GET/POST default:POST
@@ -18,7 +18,7 @@ function fnRetrieve(){
 	// 데이터 타입 default:json > 외부 요청 시 jsonp로 변경
 	//grid.dataType("json");
 	// 그리드 header 양식 ['순번','제목', '내용']
-   	grid.colNames(['순번','제목', '내용']);
+   	grid.colNames(['ID','순번','제목', '내용']);
    	// 그리드 매핑 및 포맷 
    	//	[
    	//	{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80},
@@ -26,6 +26,7 @@ function fnRetrieve(){
    	//  {name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300},
    	//	],
    	grid.colModel([ 
+   					{name:'NOTICE_ID',index:'NOTICE_ID', width:80, hidden:true, key:true},
    					{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80, formatter:'integer', sorttype:'integer'},
 	   			 	{name:'NOTICE_TITLE',index:'NOTICE_TITLE', width:150},
 	   			 	{name:'NOTICE_CONTENT',index:'NOTICE_CONTENT', width:300}
@@ -52,6 +53,8 @@ function fnRetrieve(){
    	//grid.options({edit:true, add:false, del:false});
    	// 첫 페이지만 볼지 여부 default:true >  true여야 다음 페이지 나옴
    	// grid.loadonce(true);
+   	// 셀 이벤트 (String, Function or Function name) 형태로
+   	grid.cellEvent("NOTICE_TITLE", "fnDetail")
    	grid.call();
 }
 
@@ -59,6 +62,13 @@ function fnRetrieve(){
 function fnWrite(){ 
 	var form = new ComForm(); 
 	form.url("/notice/viewDetail.do");
+	form.submit();
+}
+
+function fnDetail(rowId) {
+	var form = new ComForm(); 
+	form.url("/notice/viewDetail.do");
+	form.param("NOTICE_ID", rowId);
 	form.submit();
 }
 
@@ -72,5 +82,12 @@ function formEvent(){
 	$('#retrieve').on("click", function(e){
 		fnRetrieve(); 
 	});
+	
+	// 그리드 클릭
+    $("#jqGrid").click( function(){
+    	var selectedRowId =  $("#jqGrid").getGridParam('selrow');
+    	var row = $("#jqGrid").getRowData(selectedRowId);
+    	var name = row.NOTICE_ID;
+    });
 }
 

@@ -14,12 +14,17 @@ public class NoticeServiceImpl {
 	@Autowired
 	NoticeMapper noticeMapper;
 	
-	public List<Map<String, Object>> selectList() {
-		return noticeMapper.selectList();
+	public List<Map<String, Object>> retrieveList() {
+		return noticeMapper.retrieveList();
 	}
 
 	public void create(Map<String, Object> params) {
 		noticeMapper.create(params);
+	}
+
+	public Map<String, Object> retrieve(Map<String, Object> params) {
+		noticeMapper.updateCnt(params);
+		return noticeMapper.retrieve(params);
 	}
 
 }
