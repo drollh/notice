@@ -21,10 +21,11 @@ public class NoticeController {
 	@Autowired
 	NoticeServiceImpl noticeServiceImpl;
 	
+	// 리스트 이동
 	@RequestMapping(value = "/notice/viewList.do")
 	public ModelAndView viewList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/notice/noticeListR");
-
+		
 		return mv;
 	}
 
@@ -46,6 +47,7 @@ public class NoticeController {
 		return mv;
 	}
 	
+	// 저장
 	@RequestMapping(value = "/notice/create.do")
 	public ModelAndView create(@RequestBody Map<String, Object> params, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");

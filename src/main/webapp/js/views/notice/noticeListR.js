@@ -3,6 +3,7 @@ $(document).ready(function(){
 	formEvent();
 }); 
 
+// jqGrid
 function fnRetrieve(){ 
 	var grid = new ComGrid();
 	// grid 뿌려질 id 현재 #로 고정 추후 selector 추가
@@ -58,13 +59,14 @@ function fnRetrieve(){
    	grid.call();
 }
 
-//작성
+// 작성
 function fnWrite(){ 
 	var form = new ComForm(); 
 	form.url("/notice/viewDetail.do");
 	form.submit();
 }
 
+// 상세
 function fnDetail(rowId) {
 	var form = new ComForm(); 
 	form.url("/notice/viewDetail.do");

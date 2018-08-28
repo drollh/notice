@@ -46,7 +46,6 @@ var ComForm = function() {
 	var o = { $f:jQuery(f), id:"commonForm", method:"POST" };
 	
 	if(o.id == "commonForm"){
-		console.log("chk");
 		$("#commonForm")[0].reset();	
 	}
 	
@@ -180,7 +179,7 @@ function gCallAjax(){
     console.log(o.param);
 }
 
-// jQuery aJax 공통
+// jQuery Ajax 공통
 var ComAjax = function () {
 	var f = {};
 	var o = { $f:jQuery(f), type:"POST", async:true, dataType:"json", contentType:"application/json; charset=UTF-8"};
