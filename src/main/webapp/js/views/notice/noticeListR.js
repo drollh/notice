@@ -91,5 +91,58 @@ function formEvent(){
     	var row = $("#jqGrid").getRowData(selectedRowId);
     	var name = row.NOTICE_ID;
     });
+    
+	// exam001
+	$('#exam001').on("click", function(e){
+	    var ajax = new ComAjax();
+	    
+	    var param = $("#form").serializeObject(); 
+ 
+	    ajax.url("/exam001.do");
+	    ajax.param(param);
+	    ajax.success(function(data){
+	    	});
+	    ajax.call();
+	});
+
+	// exam002
+	$('#exam002').on("click", function(e){
+		var ajax = new ComAjax();
+		
+		var param = $("#form").serializeObject(); 
+		
+		ajax.url("/exam002.do");
+		ajax.param(param);
+		ajax.success(function(data){
+		});
+		ajax.call();
+	});
+
+	// exam003
+	$('#exam003').on("click", function(e){
+		var ajax = new ComAjax();
+		
+		var param = $("#form").serializeObject(); 
+		
+		ajax.url("/exam003.do");
+		ajax.param(param);
+		ajax.success(function(data){
+		});
+		ajax.call();
+	});
+
+	// exam004
+	$('#exam004').on("click", function(e){
+		var ajax = new ComAjax();
+		
+		var param = $("#form").serializeObject(); 
+		
+		ajax.url("/exam004.do");
+		ajax.param(param);
+		ajax.success(function(data){
+		});
+		ajax.call();
+	});
+	
 }
 

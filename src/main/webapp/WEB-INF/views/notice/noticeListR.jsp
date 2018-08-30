@@ -33,6 +33,13 @@
 	<button id="write" type="button" class="btn btn-green">글쓰기</button>
 </div>
 
+<div class="btn-group" role="group" >
+	<button id="exam001" type="button" class="btn btn-sky">exam01</button>
+	<button id="exam002" type="button" class="btn btn-sky">exam02</button>
+	<button id="exam003" type="button" class="btn btn-sky">exam03</button>
+	<button id="exam004" type="button" class="btn btn-sky">exam04</button>
+</div>
+
 <%@ include file="/WEB-INF/include/include-js.jspf" %>
 <script type="text/javascript" src="<%= request.getContextPath() + request.getRequestURI().replace("WEB-INF","js").replace(".jsp", ".js")%>"></script>
 
