@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean<XssEscapeServletFilter> registrationBean = new FilterRegistrationBean<XssEscapeServletFilter>();
         registrationBean.setFilter(new XssEscapeServletFilter());
         registrationBean.setOrder(1);
-        registrationBean.addUrlPatterns("*.do");  // l패턴
+        registrationBean.addUrlPatterns("*.do");  // 패턴
         return registrationBean;
-    }	
+    }
 }

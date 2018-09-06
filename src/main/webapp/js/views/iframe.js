@@ -1,15 +1,11 @@
 $(document).ready(function(){
-	var url = window.location.href
-	console.log(url);
-	var idx = url.indexOf("?");
-	var params = url.substr(idx + 1).split('&');
-	
-	console.log(params);
+	var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 	
     for (var i = params.length-1; i >= 0; i--) {
         if (params[i].indexOf("=") != -1){
-        	var key = params[i].substr(0, params[i].indexOf("="));
-        	var value = params[i].substr(params[i].indexOf("=") + 1);
+        	var param = params[i].split('=');
+        	var key = param[0];
+        	var value = param[1];
         	$('form').append('<input type="hidden" name="' +key +'" value="' + value + '" />');    	
         }
     }

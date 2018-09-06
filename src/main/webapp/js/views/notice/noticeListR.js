@@ -69,16 +69,10 @@ function fnWrite(){
 // 상세
 function fnDetail(rowId) {
 	var form = new ComForm(); 
-//	form.url("/notice/viewDetail.do");
-//	form.param("NOTICE_ID", rowId);
-//	form.submit();
-	
-//	var form = new ComForm(); 
 	form.url("/iframe.do");
 	form.method("GET");
 	form.param("NOTICE_ID", rowId);
 	form.param("SRC", "notice/viewDetail.do");
-	form.param("AA", "<script>alert(\"zxxcv\")</script>");
 	form.submit();
 }
 
