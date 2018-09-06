@@ -94,7 +94,7 @@ var ComForm = function() {
 		var frm = $("#" + o.id)[0];
 		
 		frm.action = o.url;
-		frm.method = "POST";
+		frm.method = o.method;
 		frm.submit();
 	}
 	

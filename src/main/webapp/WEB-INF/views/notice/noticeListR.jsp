@@ -7,17 +7,22 @@
 </head>
 <body>
 <h2>게시판 목록</h2>
-<!-- <form id="form" class="form-control">
+<form id="form" >
 	<table class="table">
 		<colgroup>
+		<col width="30%"><col width="70%">
 		</colgroup>
-		<thead>
-		</thead>
 		<tbody>
+		<tr>
+			<th>제목</th>
+			<td>
+				<input type="text">
+			</td>
+		</tr>
 		</tbody>
 	</table>
-</form> -->
-
+</form>
+<br><br>
 <div>
 <table id="jqGrid">
 

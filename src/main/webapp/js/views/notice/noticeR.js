@@ -46,7 +46,7 @@ function fn_downloadFile(obj){
 function formEvent(){
 	// 목록
     $("#list").on("click", function(e){
-        viewList();
+    	history.back();
     });
     
     // 수정

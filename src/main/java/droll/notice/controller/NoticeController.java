@@ -39,8 +39,6 @@ public class NoticeController {
 			mv.setViewName("/notice/noticeC");	
 		}else {
 			mv.setViewName("/notice/noticeR");	
-			//Map<String, Object> map = noticeServiceImpl.retrieve(noticeId);
-			
 			mv.addObject("noticeId", noticeId);
 		}
 		

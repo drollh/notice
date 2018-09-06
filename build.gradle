@@ -54,6 +54,9 @@ dependencies {
 	// mybatis Velocity
 	compile group: 'org.mybatis.scripting', name: 'mybatis-velocity', version: '1.4'
 	
+	// xss 방어  
+	compile group: 'com.navercorp.lucy', name: 'lucy-xss-servlet', version: '2.0.0'
+	
 	// webjars라는 것도 있다
 	//compile 'org.webjars:jquery:3.3.1'
 	//compile 'org.webjars:bootstrap:4.1.3'
