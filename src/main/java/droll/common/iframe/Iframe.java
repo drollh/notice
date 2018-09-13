@@ -1,6 +1,4 @@
-package droll.iframe;
-
-import java.util.Enumeration;
+package droll.common.iframe;
 
 import javax.servlet.http.HttpServletRequest;
 

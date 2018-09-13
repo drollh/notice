@@ -14,7 +14,6 @@ function fnSave(){
     var ajax = new ComAjax();
     
     var param = $("#form").serializeObject(); 
-
     ajax.url("/notice/create.do");
     ajax.param(param);
     ajax.success(function(data){

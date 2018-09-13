@@ -536,3 +536,73 @@ var ComGrid = function () {
 		return result;
 	};
 })(jQuery);
+
+// 메세지 
+var message = function (code, defaultMsg, args) {
+	var f = {};
+	var o = {msg:""};
+	
+    var ajax = new ComAjax();
+    
+    var param = $("#form").serializeObject();
+    
+    param.code = code;
+    param.args = args;
+    param.msg = defaultMsg;
+    
+    ajax.url("/retrieveMessage.do");
+    ajax.param(param);
+    ajax.async(false);
+    ajax.success(function(data){
+    	//console.log("메세지들 : " + data.message);
+        
+        var data = data.message.reduce(function(result, value) {
+        	//console.log("value : " + value);
+        	if (value.indexOf("=") != -1){
+        		var param = value.split("=");
+        		//console.log("파람 1 : " + param[0]);
+        		//console.log("파람 2 : " + param[1]);
+        		result[param[0]] = param[1];
+        	}
+        	return result;
+        }, {});
+
+        console.log(data);
+        console.log(code);
+        o.msg = data[code];
+        
+        if(o.msg == "" || o.msg === null || o.msg === undefined){
+        	o.msg = defaultMsg;	
+        }
+        console.log(o.msg);
+        
+        console.log(args);
+        console.log($.type(args));
+        if(args != "" && args !== null && args !== undefined){
+        	if ($.type(args) === "array") {
+        		
+        	}
+        	if(arguments.length == 2){
+        		
+        	}
+        }
+        
+        //console.log(JSON.stringify(data, null, ''));
+        //return JSON.stringify(data, null, '');
+        
+    	});
+    ajax.call();
+    
+    return o.msg;
+};
+
+
+
+
+
+
+
+
+
+
+

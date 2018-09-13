@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import droll.notice.service.NoticeServiceImpl;
@@ -20,11 +22,24 @@ public class NoticeController {
 	
 	@Autowired
 	NoticeServiceImpl noticeServiceImpl;
-	
+
+    @Autowired
+	MessageSourceAccessor messageSource;
+
+    @Autowired
+    LocaleResolver localeResolver;
+
 	// 리스트 이동
 	@RequestMapping(value = "/notice/viewList.do")
 	public ModelAndView viewList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/notice/noticeListR");
+		
+		//미국 기준 메시지 요청
+		//String usMessage = messageSource.getMessage("com.title", null, "no search", Locale.US); 
+		//한국 기준 메시지 요청  
+		//String korMessage = messageSource.getMessage("com.title",null, "no search", Locale.KOREA);
+		//현재 설정된 위치 기준의 메시지 요청
+		//String localeMessage = messageSource.getMessage("com.title",null, "no search", localeResolver.resolveLocale(request));
 		
 		return mv;
 	}

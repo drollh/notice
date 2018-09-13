@@ -57,6 +57,9 @@ dependencies {
 	// xss 방어  
 	compile group: 'com.navercorp.lucy', name: 'lucy-xss-servlet', version: '2.0.0'
 	
+	// InputStream, OutputStream, Reader and Writer 편하게 사용하기 위한 
+	//compile group: 'commons-io', name: 'commons-io', version: '2.4'
+	
 	// webjars라는 것도 있다
 	//compile 'org.webjars:jquery:3.3.1'
 	//compile 'org.webjars:bootstrap:4.1.3'

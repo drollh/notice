@@ -4,6 +4,7 @@
 <title>Spring boot Notice</title>
 <head>
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
+
 </head>
 <body>
 <h2>게시판 목록</h2>
@@ -14,7 +15,7 @@
 		</colgroup>
 		<tbody>
 		<tr>
-			<th>제목</th>
+			<%-- <th><spring:message code="lbl.title" text="#제목"/></th> --%>
 			<td>
 				<input type="text">
 			</td>
