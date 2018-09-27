@@ -15,7 +15,7 @@
 		</colgroup>
 		<tbody>
 		<tr>
-			<%-- <th><spring:message code="lbl.title" text="#제목"/></th> --%>
+			<th><spring:message code="lbl.title" text="#제목"/></th>
 			<td>
 				<input type="text">
 			</td>

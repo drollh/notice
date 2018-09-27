@@ -1,6 +1,4 @@
 $(document).ready(function(){
-	//console.log("호출 : " + message("com.title", "나와라 디펄트!"));
-	console.log("호출 : " + message("msg.com.text","", ['100','32']));
 	fnRetrieve();
 	formEvent();
 }); 
@@ -21,16 +19,11 @@ function fnRetrieve(){
 	// 데이터 타입 default:json > 외부 요청 시 jsonp로 변경
 	//grid.dataType("json");
 	// 그리드 header 양식 ['순번','제목', '내용']
-/*   	grid.colNames([message("msg.grid.id")
+   	grid.colNames([message("msg.grid.id")
    				 , message("msg.grid.seq")
    				 , message("msg.grid.title")
    				 , message("msg.grid.content")
-   				 ]);*/
-   	grid.colNames(["ID"
-			  	 , "순번"
-			  	 , "제목"
-			 	 , "내용"
-			 	 ]);   	
+   				 ]);
    	// 그리드 매핑 및 포맷 
    	//	[
    	//	{name:'NOTICE_SEQ',index:'NOTICE_SEQ', width:80},

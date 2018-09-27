@@ -1,3 +1,6 @@
+// common.js 로드 시 한 번만 메세지 불러서 세팅하도록 하기 위한 변수
+var messages;
+
 // null check
 function fnIsNull(str) {
 	if (str == null) return true;
@@ -537,72 +540,46 @@ var ComGrid = function () {
 	};
 })(jQuery);
 
-// 메세지 
+//메세지 
 var message = function (code, defaultMsg, args) {
 	var f = {};
 	var o = {msg:""};
 	
-    var ajax = new ComAjax();
-    
-    var param = $("#form").serializeObject();
-    
-    param.code = code;
-    param.args = args;
-    param.msg = defaultMsg;
-    
-    ajax.url("/retrieveMessage.do");
-    ajax.param(param);
-    ajax.async(false);
-    ajax.success(function(data){
-    	//console.log("메세지들 : " + data.message);
-        
-        var data = data.message.reduce(function(result, value) {
-        	//console.log("value : " + value);
-        	if (value.indexOf("=") != -1){
-        		var param = value.split("=");
-        		//console.log("파람 1 : " + param[0]);
-        		//console.log("파람 2 : " + param[1]);
-        		result[param[0]] = param[1];
-        	}
-        	return result;
-        }, {});
+    var data = messages.reduce(function(result, value) {
+    	//console.log("value : " + value);
+    	if (value.indexOf("=") != -1){
+    		var param = value.split("=");
+    		//console.log("파람 1 : " + param[0]);
+    		//console.log("파람 2 : " + param[1]);
+    		result[param[0]] = param[1];
+    	}
+    	return result;
+    }, {});
 
-        console.log(data);
-        console.log(code);
-        o.msg = data[code];
-        
-        if(o.msg == "" || o.msg === null || o.msg === undefined){
-        	o.msg = defaultMsg;	
-        }
-        console.log(o.msg);
-        
-        console.log(args);
-        console.log($.type(args));
-        if(args != "" && args !== null && args !== undefined){
-        	if ($.type(args) === "array") {
-        		
-        	}
-        	if(arguments.length == 2){
-        		
-        	}
-        }
-        
-        //console.log(JSON.stringify(data, null, ''));
-        //return JSON.stringify(data, null, '');
-        
-    	});
-    ajax.call();
+    o.msg = data[code];
     
+    if(fnIsNull(o.msg)){
+    	o.msg = defaultMsg;	
+    }
+    
+    if(!fnIsNull(args) && $.type(args) === "array"){
+    	args.forEach(function(val, idx){
+    		o.msg = o.msg.replace("{" + idx + "}", val);
+    		o.msg = o.msg.replace("{#" + idx + "}", val);
+    	});
+    }
+   
     return o.msg;
 };
 
-
-
-
-
-
-
-
-
-
+(function () {
+    var ajax = new ComAjax();
+    
+    ajax.url("/retrieveMessage.do");
+    ajax.async(false);
+    ajax.success(function(data){
+    	messages = data.message;
+    });
+    ajax.call();
+}());
 
